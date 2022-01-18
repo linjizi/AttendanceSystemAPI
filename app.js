@@ -7,8 +7,15 @@ mongoose.connect('mongodb://localhost/attendance_system').then(() => {
 }).catch(err => {
     console.log('数据库连接失败' + err.message);
 })
-app.get('/login', (res, req) => {
-    console.log(req);
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials','true');
+    next()
+})
+app.get('/login', (req, res) => {
+    console.log(req.query);
 })
 
 app.listen(4000, () => {
